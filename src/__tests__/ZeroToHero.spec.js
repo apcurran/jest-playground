@@ -21,3 +21,29 @@ pizzas.forEach((pizza, index) => {
     expect(pizzas[index]).toHaveProperty("price");
   });
 });
+
+test("mock implementation of a basic function", () => {
+  const mock = jest.fn(() => "I am a mock func.");
+
+  expect(mock("Calling my mock function!")).toBe("I am a mock func.");
+  expect(mock).toHaveBeenCalledWith("Calling my mock function!");
+});
+
+test("mock return value of a function one time", () => {
+  const mock = jest.fn();
+
+  mock
+    .mockReturnValueOnce("Hello")
+    .mockReturnValueOnce("there!");
+
+  mock();
+  mock();
+
+  expect(mock).toHaveBeenCalledTimes(2);
+
+  mock("Hello", "there", "Steve");
+  expect(mock).toHaveBeenCalledWith("Hello", "there", "Steve");
+
+  mock("Steve");
+  expect(mock).toHaveBeenCalledWith("Steve");
+});
