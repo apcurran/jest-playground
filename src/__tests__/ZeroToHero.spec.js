@@ -47,3 +47,22 @@ test("mock return value of a function one time", () => {
   mock("Steve");
   expect(mock).toHaveBeenCalledWith("Steve");
 });
+
+test("mock implementation of a function", () => {
+  const mock = jest.fn().mockImplementation(() => "United States");
+
+  expect(mock("Location")).toBe("United States");
+  expect(mock).toHaveBeenCalledWith("Location");
+});
+
+test("spying using original implementation", () => {
+  const pizza = {
+    name(n) {
+      return `Pizza name: ${n}`;
+    }
+  };
+
+  const spy = jest.spyOn(pizza, "name");
+  expect(pizza.name("Veggies")).toBe("Pizza name: Veggies");
+  expect(spy).toHaveBeenCalledWith("Veggies");
+});
