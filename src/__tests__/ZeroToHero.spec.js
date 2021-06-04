@@ -95,3 +95,35 @@ test("pizza returns New York last", () => {
 
   expect(pizza).toHaveLastReturnedWith("New York Pizza");
 });
+
+test("pizza data has New York pizza and matches as an object", () => {
+  const newYorkPizza = {
+    "id": 3,
+    "name": "New York Pizza",
+    "image": "/images/ny-pizza.jpg",
+    "desc": "New York-style pizza has slices that are large and wide with a thin crust that is foldable yet crispy. It is traditionally topped with tomato sauce and veggies.",
+    "price": 8
+  };
+
+  expect(pizzas[2]).toMatchObject(newYorkPizza);
+});
+
+test("expect a promise to resolve", async () => {
+  const user = {
+    getFullName: jest.fn(() => Promise.resolve("Ben Franklin"))
+  };
+
+  await expect(user.getFullName("Ben Franklin")).resolves.toBe("Ben Franklin");
+});
+
+test("expect a promise to reject", async () => {
+  const user = {
+    getFullName: jest.fn(() => {
+      const error = new Error("Something went wrong");
+
+      return Promise.reject(error); 
+    })
+  };
+
+  await expect(user.getFullName("Ben Franklin")).rejects.toThrow("Something went wrong");
+});
