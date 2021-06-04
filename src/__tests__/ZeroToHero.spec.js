@@ -82,3 +82,16 @@ test("spying using mock implementation", () => {
   spy.mockRestore();
   expect(pizza.name("Veggies")).toBe("Pizza name: Veggies");
 });
+
+test("pizza returns New York last", () => {
+  const pizza1 = pizzas[0];
+  const pizza2 = pizzas[1];
+  const pizza3 = pizzas[2];
+  const pizza = jest.fn((currentPizza) => currentPizza.name);
+
+  pizza(pizza1); // Chicago Pizza
+  pizza(pizza2); // Neapolitan Pizza
+  pizza(pizza3); // New York Pizza
+
+  expect(pizza).toHaveLastReturnedWith("New York Pizza");
+});
